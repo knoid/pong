@@ -1,0 +1,25 @@
+.wrapper {
+  margin: 1em;
+}
+
+.block {
+  display: block;
+  width: 100%;
+}
+
+.label {
+  composes: block;
+  font-variant: small-caps;
+  margin-bottom: .2em;
+}
+
+.input {
+  composes: block;
+  background-color: transparent;
+  border-bottom-color: #fff;
+  border-width: 0 0 1px;
+  color: #fff;
+  font-size: 1em;
+  outline: 0;
+  padding-bottom: .2em;
+}

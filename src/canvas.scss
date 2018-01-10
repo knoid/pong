@@ -1,0 +1,14 @@
+@import './_variables.scss';
+
+.wrapper {
+  background-color: #000;
+  height: 100%;
+  overflow: hidden;
+
+  @media (min-width: 500px) {
+    border-radius: $border-radius;
+    height: 667px;
+    margin: auto;
+    width: 375px;
+  }
+}
