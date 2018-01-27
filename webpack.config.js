@@ -75,8 +75,8 @@ module.exports = {
     }),
     new ExtractTextPlugin({
       allChunks: true,
-      disable: isProd,
-      filename: '[name].[hash].css',
+      disable: !isProd,
+      filename: '[name].[chunkhash].css',
     }),
     new HtmlWebpackPlugin({
       googleAnalytics: process.env.GA_TRACKING_ID,
