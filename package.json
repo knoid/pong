@@ -27,7 +27,7 @@
     "sass-loader": "^6.0.6",
     "style-loader": "^0.19.1",
     "webpack": "^3.8.1",
-    "webrtc-adapter": "^6.0.4"
+    "webrtc-adapter": "^6.1.0"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",

@@ -1,8 +1,5 @@
 import preact from 'preact';
 import Canvas from './canvas';
-import NicknameModal from './nickname-modal';
-import PeersList from './peers-list';
-import Pong from './pong';
 
 export default class Game extends preact.Component {
   state = {
@@ -10,6 +7,20 @@ export default class Game extends preact.Component {
     nickname: localStorage.getItem('nickname') || '',
     player: null,
   };
+
+  async componentWillMount() {
+    if (!this.state.nickname) {
+      this.setState({
+        NicknameModal: (await import(/* webpackChunkName: "nickname-modal" */ './nickname-modal')).default,
+      });
+    }
+    this.setState({
+      PeersList: (await import(/* webpackChunkName: "peers-list" */ './peers-list')).default,
+    });
+    this.setState({
+      Pong: (await import(/* webpackChunkName: "pong" */ './pong')).default,
+    });
+  }
 
   setNickname = (nickname) => {
     localStorage.setItem('nickname', nickname);
@@ -20,7 +31,9 @@ export default class Game extends preact.Component {
     this.setState({ oponent, dataChannel });
   }
 
-  render(_, { dataChannel, nickname, oponent }) {
+  render(_, {
+    NicknameModal, PeersList, Pong, dataChannel, nickname, oponent,
+  }) {
     return (
       <Canvas>
         {!nickname &&
