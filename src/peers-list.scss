@@ -1,0 +1,32 @@
+.list {
+  border: 1px solid #999;
+  background-color: #888;
+  min-height: 10em;
+}
+
+.loader {
+  animation: spin 1s linear infinite;
+  border: 3px solid #00a;
+  border-right-color: transparent;
+  border-radius: 50%;
+  height: 3em;
+  width: 3em;
+}
+
+.uList {
+  list-style: none;
+  button {
+    background-color: #ccc;
+    border: 1px solid #eee;
+    color: #333;
+    font-size: 0.9em;
+    padding: 0.1em 0.2em;
+    width: 100%;
+  }
+}
+
+@keyframes spin {
+  100% {
+    transform:rotate(360deg);
+  }
+}

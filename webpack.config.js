@@ -30,6 +30,7 @@ module.exports = {
                 browsers: 'last 2 versions',
                 uglify: true,
               },
+              useBuiltIns: true,
             }],
             'stage-0',
           ],
@@ -78,6 +79,7 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       googleAnalytics: process.env.GA_TRACKING_ID,
+      signalingServer: isProd && 'https://webrtc-discovery.herokuapp.com/',
       template: './src/template.ejs',
       title: 'Pong',
     }),

@@ -1,0 +1,16 @@
+env:
+  browser: true
+extends: airbnb
+parser: babel-eslint
+rules:
+  react/no-deprecated: 0
+  react/no-unknown-property:
+    - 2
+    - ignore:
+      - class
+      - for
+  react/no-unused-state: 0
+  react/prop-types: 0
+settings:
+  react:
+    pragma: preact

@@ -1,32 +1,37 @@
 import preact from 'preact';
 import Canvas from './canvas';
-import FormGroup from './form-group';
-import Modal from './modal';
+import NicknameModal from './nickname-modal';
+import PeersList from './peers-list';
+import Pong from './pong';
 
 export default class Game extends preact.Component {
-  setNickname = (e) => {
-    e.preventDefault();
-    const nickname = this.nicknameElem.value;
-    localStorage.setItem('nickname', this.nicknameElem.value);
+  state = {
+    dataChannel: null,
+    nickname: localStorage.getItem('nickname') || '',
+    player: null,
+  };
+
+  setNickname = (nickname) => {
+    localStorage.setItem('nickname', nickname);
     this.setState({ nickname });
   }
 
-  componentDidMount() {
-    this.setState({
-      nickname: localStorage.getItem('nickname'),
-    });
+  connectTo = (oponent, dataChannel) => {
+    this.setState({ oponent, dataChannel });
   }
 
-  render({ }, { nickname }) {
+  render(_, { dataChannel, nickname, oponent }) {
     return (
       <Canvas>
-        {!nickname && (
-          <Modal>
-            <form onsubmit={ this.setNickname }>
-              <FormGroup label="Nick" name="nick" inputRef={e => this.nicknameElem = e} />
-            </form>
-          </Modal>
-        )}
+        {!nickname &&
+          <NicknameModal setNickname={this.setNickname} />
+        }
+        {nickname && !oponent &&
+          <PeersList nickname={nickname} connectTo={this.connectTo} />
+        }
+        {dataChannel && oponent &&
+          <Pong dataChannel={dataChannel} />
+        }
       </Canvas>
     );
   }

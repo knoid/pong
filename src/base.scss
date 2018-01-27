@@ -20,3 +20,14 @@
     }
   }
 }
+
+.centerContent {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  > div {
+    margin: auto;
+    flex: 0 1 auto;
+  }
+}

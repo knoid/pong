@@ -1,0 +1,32 @@
+@import './variables';
+
+.ball {
+  height: 70%;
+  margin: -0.5em 0;
+  position: relative;
+  > div {
+    @include size(1em, 1em);
+    background-color: #fff;
+    border-radius: 100%;
+    margin: -0.5em;
+    position: absolute;
+  }
+}
+
+.court {
+  height: 100%;
+}
+
+.paddle {
+  $width: 20%;
+
+  height: 3em;
+  > div {
+    @include size($width, 1em);
+    border-radius: 1em;
+    background-color: blue;
+    margin-left: (-$width / 2);
+    margin: 1em (-$width / 2);
+    position: absolute;
+ }
+}

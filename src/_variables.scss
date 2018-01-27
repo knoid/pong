@@ -1,1 +1,6 @@
 $border-radius: 4px;
+
+@mixin size($width, $height) {
+  height: $height;
+  width: $width;
+}
