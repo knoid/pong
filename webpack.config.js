@@ -14,9 +14,9 @@ module.exports = {
     host: '0.0.0.0',
   },
   output: {
-    path: path.resolve(__dirname, 'dist'),
     chunkFilename: '[name].[chunkhash].js',
-    filename: 'bundle.[chunkhash].js',
+    filename: 'bundle.[hash].js',
+    path: path.resolve(__dirname, 'dist'),
   },
   module: {
     rules: [
