@@ -5,8 +5,10 @@ import styles from './form-group.scss';
 const FormGroup = ({
   label, name, inputRef, children, className = '', ...inputProps
 }) => (
-  <div class={classNames(styles.wrapper, className)}>
-    <label class={styles.label} for={name}>{label}</label>
+  <div class={classNames(styles.wrapper, className, { [styles.center]: !label })}>
+    {label &&
+      <label class={styles.label} for={name}>{label}</label>
+    }
     {(children.length && children) ||
       <input class={styles.input} type="text" name={name} id={name} ref={inputRef} {...inputProps} />
     }

@@ -1,3 +1,5 @@
+@import './variables';
+
 .wrapper {
   margin: 1em;
 }
@@ -5,6 +7,16 @@
 .block {
   display: block;
   width: 100%;
+}
+
+.button {
+  border-radius: $border-radius;
+  padding: .3em;
+  border: 0;
+}
+
+.center {
+  text-align: center;
 }
 
 .label {

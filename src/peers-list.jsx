@@ -4,6 +4,7 @@ import FormGroup from './form-group';
 import Modal from './modal';
 import styles from './peers-list.scss';
 import baseStyles from './base.scss';
+import fgStyles from './form-group.scss';
 import * as signalingServer from './signaling-server';
 
 function PeerButton({ connectTo, ...props }) {
@@ -83,6 +84,10 @@ export default class PeersList extends preact.Component {
     };
   }
 
+  componentWillUnmount() {
+    this.eventSource.close();
+  }
+
   askedToken = null;
 
   connectTo = async (player) => {
@@ -98,7 +103,7 @@ export default class PeersList extends preact.Component {
     await signalingServer.sendOffer(player.publicId, description);
   }
 
-  render(_, { otherPlayers }) {
+  render({ changeNickname }, { otherPlayers }) {
     const isLoading = otherPlayers.length === 0;
     return (
       <Modal>
@@ -114,6 +119,9 @@ export default class PeersList extends preact.Component {
               </div>
             }
           </div>
+        </FormGroup>
+        <FormGroup>
+          <button class={fgStyles.button} onClick={changeNickname}>Change my nickname</button>
         </FormGroup>
       </Modal>
     );

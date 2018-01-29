@@ -18,11 +18,18 @@ export default class Game extends preact.Component {
     this.setState({
       Pong: (await import(/* webpackChunkName: "pong" */ './pong')).default,
     });
+    if (!this.state.Nickname) {
+      await this.loadNicknameComponent();
+    }
   }
 
   setNickname = (nickname) => {
     localStorage.setItem('nickname', nickname);
     this.setState({ nickname });
+  }
+
+  changeNickname = () => {
+    this.setState({ nickname: '' });
   }
 
   async loadNicknameComponent() {
@@ -41,10 +48,14 @@ export default class Game extends preact.Component {
     return (
       <Canvas>
         {!nickname &&
-          <NicknameModal setNickname={this.setNickname} />
+          <Nickname setNickname={this.setNickname} />
         }
         {nickname && !oponent &&
-          <PeersList nickname={nickname} connectTo={this.connectTo} />
+          <PeersList
+            nickname={nickname}
+            connectTo={this.connectTo}
+            changeNickname={this.changeNickname}
+          />
         }
         {dataChannel && oponent &&
           <Pong dataChannel={dataChannel} />
