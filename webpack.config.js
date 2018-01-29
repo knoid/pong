@@ -1,8 +1,8 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const cmrhConf = require('./cmrh.conf');
 const path = require('path');
-const webpack = require('webpack');
 
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -28,8 +28,15 @@ module.exports = {
           presets: [
             ['env', {
               targets: {
-                browsers: 'last 2 versions',
-                uglify: true,
+                browsers: [
+                  'last 2 Chrome versions',
+                  'last 2 ChromeAndroid versions',
+                  'last 2 Edge versions',
+                  'last 2 Firefox versions',
+                  'last 2 FirefoxAndroid versions',
+                  'last 2 iOS versions',
+                  'last 2 Safari versions',
+                ],
               },
               useBuiltIns: true,
             }],
@@ -66,12 +73,23 @@ module.exports = {
     ],
   },
   plugins: [
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        drop_console: true,
-        warnings: !isProd,
-      },
+    new UglifyJsPlugin({
       sourceMap: true,
+      uglifyOptions: {
+        compress: {
+          drop_console: true,
+          pure_getters: true,
+          toplevel: true,
+          unsafe_math: true,
+          warnings: !isProd,
+        },
+        mangle: {
+          toplevel: true,
+        },
+        output: {
+          // beautify: true,
+        },
+      },
     }),
     new ExtractTextPlugin({
       allChunks: true,
