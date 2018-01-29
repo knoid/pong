@@ -1,10 +1,13 @@
-import clamp from 'lodash/clamp';
 import preact from 'preact';
 import styles from './pong.scss';
 
 const PADDLE_WIDTH = 0.2;
 const BALL_VELOCITY = 0.5;
 const MAX_BALL_VELOCITY_X = 0.9 * BALL_VELOCITY;
+
+function clamp(num, min, max) {
+  return Math.max(min, Math.min(num, max));
+}
 
 function p(delta) {
   return `${delta * 100}%`;

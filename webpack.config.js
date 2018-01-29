@@ -44,6 +44,7 @@ module.exports = {
           ],
           plugins: [
             ['transform-react-jsx', { pragma: 'preact.h' }],
+            ['transform-runtime'],
           ],
         },
       },
