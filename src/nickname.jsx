@@ -2,7 +2,7 @@ import preact from 'preact';
 import FormGroup from './form-group';
 import Modal from './modal';
 
-export default class NicknameModal extends preact.Component {
+export default class Nickname extends preact.Component {
   componentDidUpdate() {
     if (this.nicknameElem) {
       this.nicknameElem.select();
