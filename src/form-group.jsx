@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import preact from 'preact';
+import * as preact from 'preact';
 import styles from './form-group.scss';
 
 const FormGroup = ({
