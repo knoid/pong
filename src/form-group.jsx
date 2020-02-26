@@ -9,7 +9,7 @@ const FormGroup = ({
     {label &&
       <label class={styles.label} for={name}>{label}</label>
     }
-    {(children.length && children) ||
+    {children ||
       <input class={styles.input} type="text" name={name} id={name} ref={inputRef} {...inputProps} />
     }
   </div>
