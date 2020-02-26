@@ -1,7 +1,7 @@
-import WebRTCutils from 'webrtc-adapter/src/js/utils';
-import commonShim from 'webrtc-adapter/src/js/common_shim';
+import { detectBrowser } from 'webrtc-adapter/src/js/utils';
+import * as commonShim from 'webrtc-adapter/src/js/common_shim';
 
-const { browser } = WebRTCutils.detectBrowser(window);
+const { browser } = detectBrowser(window);
 const browserShimImport = (() => {
   switch (browser) {
     case 'chrome':
@@ -18,45 +18,65 @@ const browserShimImport = (() => {
 })();
 
 module.exports = browserShimImport.then((browserShim) => {
-  commonShim.shimCreateObjectURL(window);
-  commonShim.shimMaxMessageSize(window);
-  commonShim.shimSendThrowTypeError(window);
-  browserShim.shimGetUserMedia(window);
-
   switch (browser) {
     case 'chrome':
+      browserShim.shimGetUserMedia(window);
       browserShim.shimMediaStream(window);
-      browserShim.shimSourceObject(window);
       browserShim.shimPeerConnection(window);
       browserShim.shimOnTrack(window);
       browserShim.shimAddTrackRemoveTrack(window);
       browserShim.shimGetSendersWithDtmf(window);
+      browserShim.shimGetStats(window);
+      browserShim.shimSenderReceiverGetStats(window);
+      browserShim.fixNegotiationNeeded(window);
 
       commonShim.shimRTCIceCandidate(window);
+      commonShim.shimConnectionState(window);
+      commonShim.shimMaxMessageSize(window);
+      commonShim.shimSendThrowTypeError(window);
+      commonShim.removeAllowExtmapMixed(window);
       break;
     case 'firefox':
-      browserShim.shimSourceObject(window);
+      browserShim.shimGetUserMedia(window);
       browserShim.shimPeerConnection(window);
       browserShim.shimOnTrack(window);
       browserShim.shimRemoveStream(window);
+      browserShim.shimSenderGetStats(window);
+      browserShim.shimReceiverGetStats(window);
+      browserShim.shimRTCDataChannel(window);
+      browserShim.shimAddTransceiver(window);
+      browserShim.shimCreateOffer(window);
+      browserShim.shimCreateAnswer(window);
 
       commonShim.shimRTCIceCandidate(window);
+      commonShim.shimConnectionState(window);
+      commonShim.shimMaxMessageSize(window);
+      commonShim.shimSendThrowTypeError(window);
       break;
     case 'edge':
+      browserShim.shimGetUserMedia(window);
+      browserShim.shimGetDisplayMedia(window);
       browserShim.shimPeerConnection(window);
       browserShim.shimReplaceTrack(window);
 
       // the edge shim implements the full RTCIceCandidate object.
+
+      commonShim.shimMaxMessageSize(window);
+      commonShim.shimSendThrowTypeError(window);
       break;
     case 'safari':
       browserShim.shimRTCIceServerUrls(window);
+      browserShim.shimCreateOfferLegacy(window);
       browserShim.shimCallbacksAPI(window);
       browserShim.shimLocalStreamsAPI(window);
       browserShim.shimRemoteStreamsAPI(window);
       browserShim.shimTrackEventTransceiver(window);
-      browserShim.shimCreateOfferLegacy(window);
+      browserShim.shimGetUserMedia(window);
 
       commonShim.shimRTCIceCandidate(window);
+      commonShim.shimMaxMessageSize(window);
+      commonShim.shimSendThrowTypeError(window);
+      commonShim.removeAllowExtmapMixed(window);
       break;
     default:
       break;

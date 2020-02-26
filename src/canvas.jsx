@@ -1,4 +1,4 @@
-import preact from 'preact';
+import * as preact from 'preact';
 import styles from './canvas.scss';
 
 const Canvas = ({ children }) => (

@@ -1,5 +1,5 @@
 import 'babel-polyfill';
-import preact from 'preact';
+import * as preact from 'preact';
 import './base.scss';
 import webrtcShim from './webrtc-shim';
 
