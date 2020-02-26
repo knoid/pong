@@ -1,4 +1,4 @@
-import * as preact from 'preact';
+import preact from 'preact';
 import FormGroup from './form-group';
 import Modal from './modal';
 

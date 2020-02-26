@@ -1,4 +1,4 @@
-import * as preact from 'preact';
+import preact from 'preact';
 import Canvas from './canvas';
 
 export default class Game extends preact.Component {

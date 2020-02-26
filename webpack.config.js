@@ -1,5 +1,6 @@
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const cmrhConf = require('./cmrh.conf');
 const path = require('path');
 
@@ -17,7 +18,6 @@ module.exports = {
     filename: 'bundle.[hash].js',
     path: path.resolve(__dirname, 'dist'),
   },
-  mode: isProd ? 'production' : 'development',
   module: {
     rules: [
       {
@@ -50,36 +50,52 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        use: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-            options: {
-              hmr: !isProd,
-            },
-          },
-          {
-            loader: 'css-loader',
-            options: {
-              modules: {
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: 'css-loader',
+              query: {
                 getLocalIdent(context, localIdentName, localName) {
                   return cmrhConf.generateScopedName(localName, context.resourcePath);
                 },
+                minimize: true,
+                modules: true,
+                sourceMap: !isProd,
               },
-              sourceMap: !isProd,
             },
-          },
-          {
-            loader: 'sass-loader',
-            options: { sourceMap: true },
-          },
-        ],
+            {
+              loader: 'sass-loader',
+              query: { sourceMap: true },
+            },
+          ],
+        }),
       },
     ],
   },
   plugins: [
-    new MiniCssExtractPlugin({
-      filename: isProd ? '[name].[hash].css' : '[name].css',
-      chunkFilename: isProd ? '[id].[hash].css' : '[id].css',
+    new UglifyJsPlugin({
+      sourceMap: true,
+      uglifyOptions: {
+        compress: {
+          drop_console: true,
+          pure_getters: true,
+          toplevel: true,
+          unsafe_math: true,
+          warnings: !isProd,
+        },
+        mangle: {
+          toplevel: true,
+        },
+        output: {
+          // beautify: true,
+        },
+      },
+    }),
+    new ExtractTextPlugin({
+      allChunks: true,
+      disable: !isProd,
+      filename: '[name].[chunkhash].css',
     }),
     new HtmlWebpackPlugin({
       googleAnalytics: process.env.GA_TRACKING_ID,

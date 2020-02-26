@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import * as preact from 'preact';
+import preact from 'preact';
 import FormGroup from './form-group';
 import Modal from './modal';
 import styles from './peers-list.scss';

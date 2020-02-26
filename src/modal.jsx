@@ -1,4 +1,4 @@
-import * as preact from 'preact';
+import preact from 'preact';
 import styles from './modal.scss';
 
 const Modal = ({ children }) => (
