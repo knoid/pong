@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import preact from 'preact';
+import * as preact from 'preact';
 import styles from './form-group.scss';
 
 const FormGroup = ({
@@ -9,7 +9,7 @@ const FormGroup = ({
     {label &&
       <label class={styles.label} for={name}>{label}</label>
     }
-    {(children.length && children) ||
+    {children ||
       <input class={styles.input} type="text" name={name} id={name} ref={inputRef} {...inputProps} />
     }
   </div>
